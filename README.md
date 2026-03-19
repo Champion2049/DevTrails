@@ -1,198 +1,176 @@
 # RainShield AI: Parametric Income Protection for Delivery Riders
 
-## Problem Statement
-Delivery partners in India, such as food delivery riders, experience significant income loss due to uncontrollable external disruptions like heavy rainfall, flooding, and platform downtime. Currently, there is no structured mechanism to protect their daily earnings during such events.
+## 1. Problem Understanding
+Delivery riders in India rely on daily earnings for financial stability. External disruptions such as heavy rainfall, flooding, and platform downtime reduce their ability to work, leading to immediate income loss. Currently, there is no system that compensates them for such short-term disruptions.
+
+Our goal is to design a parametric insurance system that automatically detects such disruptions and compensates riders for lost income.
 
 ---
 
-## Solution Overview
-RainShield AI is a simulation-based parametric insurance platform designed to automatically compensate delivery riders for income loss caused by external disruptions. The system eliminates the need for manual claims by detecting disruptions, estimating income loss using AI models, and triggering payouts automatically.
+## 2. Persona & Scenarios
+
+### Persona:
+Food delivery rider working with platforms such as Swiggy or Zomato in urban areas.
+
+### Scenario 1: Heavy Rainfall
+- Rider logs in to start work
+- Sudden heavy rain reduces order volume
+- Rider’s earnings drop significantly
+
+### Scenario 2: Extreme Disruption
+- Continuous rainfall leads to near-zero orders
+- Rider is unable to work for multiple hours
+
+### Scenario 3: Platform Downtime (Simulated)
+- Delivery app experiences outage
+- Rider remains active but receives no orders
 
 ---
 
-## Objectives
-- Protect delivery riders from income loss due to external disruptions
-- Enable automated and transparent insurance payouts
-- Use AI-driven models for risk assessment and income prediction
-- Simulate a real-world insurance workflow within a controlled environment
+## 3. System Workflow
 
----
-
-## Key Features
-
-### Disruption Detection Engine
-- Simulates environmental conditions such as rainfall intensity
-- Supports multiple disruption types:
-  - Heavy rainfall
-  - Flood conditions
-  - Platform downtime (simulated)
-
-### AI-Based Income Estimation
-- Predicts expected income per hour under normal conditions
-- Compares expected income with actual simulated earnings
-- Computes real-time income loss
-
-### Parametric Insurance Automation
-- Eliminates manual claim filing
-- Automatically triggers payouts based on predefined conditions
-
-### Payout System (Simulated)
-- Wallet-based payout mechanism
-- Instant credit simulation upon trigger activation
-- Weekly payout limits enforced
-
-### Fraud Detection System
-- Validates rider activity and location (simulated)
-- Detects anomalies such as:
-  - Inactive riders during claims
-  - Mismatch between disruption and activity
-  - Duplicate claims
-
-### Dashboard and Analytics
-#### Rider Dashboard:
-- Weekly insurance plan
-- Earnings protected
-- Wallet balance
-- Active disruptions
-
-#### Admin Dashboard:
-- Risk analysis across zones
-- Total payouts processed
-- Fraud detection logs
-- Disruption impact metrics
-
----
-
-## Target Persona
-Food delivery riders operating on platforms such as Swiggy and Zomato.
-
----
-
-## System Workflow
 1. Rider registers and selects a weekly insurance plan  
-2. System calculates premium based on risk factors  
+2. System assigns a premium based on risk factors  
 3. Platform continuously monitors simulated disruptions  
 4. AI model estimates expected income  
-5. Actual earnings are simulated and compared  
-6. If thresholds are met, payout is triggered automatically  
-7. Compensation is credited to the rider’s wallet  
+5. Actual income is simulated under disruption conditions  
+6. System calculates income loss  
+
+$$
+\text{Income Loss} = \text{Expected Income} - \text{Actual Income}
+$$
+
+7. If predefined thresholds are met, payout is triggered automatically  
+8. Compensation is credited to the rider  
 
 ---
 
-## AI and Machine Learning Approach
+## 4. Weekly Premium Model
 
-### Income Prediction Model
-- Model Type: Regression (Linear Regression or Random Forest)
-- Input Features:
-  - Time of day
-  - Location or delivery zone
-  - Weather conditions (rainfall intensity)
-- Output:
-  - Expected income per hour
+The system follows a subscription-based weekly pricing model aligned with gig worker earning cycles.
 
-### Risk Scoring Model
-- Estimates likelihood of disruptions in a given zone
-- Used for dynamic weekly premium calculation
+### Premium Calculation Factors:
+- Zone-based risk (flood-prone vs low-risk areas)
+- Historical disruption frequency
+- Predicted weather patterns
 
-### Anomaly Detection
-- Identifies fraudulent or inconsistent claims
-- Based on deviations from expected behavioral patterns
+### Example Logic:
+- Higher rainfall probability → higher premium  
+- Lower risk zone → lower premium  
 
----
-
-## Weekly Pricing Model
-The platform follows a subscription-based weekly pricing structure aligned with gig worker earnings cycles.
-
+### Example Plans:
 | Plan     | Weekly Cost | Coverage Limit |
 |----------|-------------|----------------|
 | Basic    | ₹30         | ₹500           |
 | Standard | ₹50         | ₹1000          |
 | Premium  | ₹80         | ₹2000          |
 
-Premiums are determined based on:
-- Zone-specific risk levels
-- Historical disruption patterns
-- Predicted weather conditions
+---
+
+## 5. Parametric Triggers
+
+Payout is triggered automatically when:
+
+$$
+\text{Rainfall} > R_{threshold} \quad \land \quad \text{Income Loss} > L_{threshold}
+$$
+
+Key Characteristics:
+- No manual claim process
+- Fully automated decision-making
+- Predefined transparent conditions
 
 ---
 
-## Parametric Trigger Conditions
+## 6. AI/ML Integration Plan
 
-Payout is triggered when predefined conditions are satisfied:
-
-IF (Rainfall > Threshold)  
-AND (Income Loss > Threshold)  
-THEN Trigger Payout  
-
----
-
-## Simulation Design
-- Weather data is generated using predefined scenarios
-- Delivery earnings are dynamically simulated
-- AI models operate on synthetic datasets
-- Disruption events can be triggered manually for demonstration
+### 1. Income Prediction Model
+- Type: Regression Model
+- Predicts expected earnings under normal conditions
+- Inputs:
+  - Time of day
+  - Location/zone
+  - Weather conditions
 
 ---
 
-## Technology Stack
+### 2. Risk Scoring Model
+- Estimates disruption likelihood
+- Used for dynamic premium calculation
 
-### Frontend
+---
+
+### 3. Fraud Detection (Rule-Based + ML)
+- Detects anomalies such as:
+  - Rider inactive during disruption
+  - Mismatch between location and event
+  - Repeated suspicious claims
+
+---
+
+## 7. Platform Choice: Web vs Mobile
+
+We propose a **Web-based platform** for Phase 1 and Phase 2.
+
+### Justification:
+- Faster development and iteration during hackathon
+- Easier to simulate dashboards and analytics
+- No dependency on device-specific constraints
+
+### Future Scope:
+- Mobile application for real-world deployment
+
+---
+
+## 8. Tech Stack
+
+### Frontend:
 - React.js
 
-### Backend
+### Backend:
 - Node.js with Express
 
-### AI/ML
-- Python with scikit-learn
+### AI/ML:
+- Python (scikit-learn)
 
-### Database
-- MongoDB or JSON-based storage
+### Database:
+- MongoDB / JSON-based storage
 
-### Integrations
-- Simulated Weather API
+### Integrations:
+- Simulated weather data
 - Mock delivery activity data
-- Simulated payment gateway
+- Simulated payment system
 
 ---
 
-## Development Plan
+## 9. Development Plan
 
-### Phase 1: Ideation and Design
-- Define system architecture
-- Design workflows and simulation strategy
-- Outline AI models and pricing logic
+### Phase 1:
+- Problem definition and system design
+- Workflow and architecture planning
 
-### Phase 2: Core Implementation
-- User registration and onboarding
-- Policy creation and management
-- Dynamic premium calculation
-- Parametric trigger engine
+### Phase 2:
+- Implement core features:
+  - Registration
+  - Premium calculation
+  - Parametric trigger system
 
-### Phase 3: Advanced Features
-- Fraud detection module
-- Analytics dashboard
-- Simulated instant payout system
-
----
-
-## Demonstration Flow
-1. Display rider dashboard under normal conditions  
-2. Simulate heavy rainfall event  
-3. Observe reduction in delivery activity  
-4. AI calculates income loss  
-5. Parametric trigger activates automatically  
-6. Payout is credited to rider wallet  
-7. Dashboard updates with protected earnings  
+### Phase 3:
+- Add advanced components:
+  - Fraud detection
+  - Analytics dashboard
+  - Payout simulation
 
 ---
 
-## Innovation Highlights
-- Fully automated parametric insurance model
-- AI-driven income prediction and risk assessment
-- Zero-touch claim processing
-- Real-time disruption detection and response
+## 10. Additional Considerations
+
+- Ensure transparency in payout logic
+- Maintain fairness in premium calculation
+- Design system to scale across multiple cities
+- Keep user experience simple and intuitive
 
 ---
 
 ## Conclusion
-RainShield AI demonstrates a scalable and efficient approach to protecting gig workers from income instability caused by external disruptions. By leveraging AI and parametric insurance principles, the platform ensures timely and transparent compensation, improving financial resilience for delivery riders.
+RainShield AI aims to provide a scalable and automated solution for protecting gig workers from income instability using parametric insurance and AI-driven decision-making.
